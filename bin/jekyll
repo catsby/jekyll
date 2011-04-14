@@ -100,6 +100,10 @@ opts = OptionParser.new do |opts|
     puts "Jekyll " + Jekyll::VERSION
     exit 0
   end
+
+  opts.on("--init [name]", "Create and initialize a new Jekyll site") do |name|
+    options['init'] = name
+  end
 end
 
 # Read command line options into `options` hash
@@ -108,6 +112,9 @@ opts.parse!
 # Get source and destintation from command line
 case ARGV.size
   when 0
+    Jekyll::CreateSite.new(options["init"])
+    puts "Created new site #{options["init"]}"
+    exit(0)
   when 1
     options['destination'] = ARGV[0]
   when 2
