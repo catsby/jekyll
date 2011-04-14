@@ -8,3 +8,5 @@ Feature: Site Setup
     When I run jekyll with options
     Then the new_site directory should exist
     And I should see "auto: false" in "new_site/_config.yml"
+    And the new_site/_layouts directory should exist
+    And the new_site/_posts directory should exist
