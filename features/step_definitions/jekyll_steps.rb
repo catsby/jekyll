@@ -105,6 +105,13 @@ Given /^I have a configuration file with "([^\"]*)" set to:$/ do |key, table|
   end
 end
 
+Given /^I set the? "(.*)" option to "(.*)"$/ do |option, text|
+  @options = {option => text}
+end
+
+When /^I run jekyll with options$/ do
+  run_jekyll(@options)
+end
 
 When /^I run jekyll$/ do
   run_jekyll

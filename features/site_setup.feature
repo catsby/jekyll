@@ -10,3 +10,5 @@ Feature: Site Setup
     And I should see "auto: false" in "new_site/_config.yml"
     And the new_site/_layouts directory should exist
     And the new_site/_posts directory should exist
+    And the "new_site/index.md" file should exist
+    And the "new_site/_layouts/default.html" file should exist
