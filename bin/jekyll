@@ -112,9 +112,11 @@ opts.parse!
 # Get source and destintation from command line
 case ARGV.size
   when 0
-    Jekyll::CreateSite.new(options["init"])
-    puts "Created new site #{options["init"]}"
-    exit(0)
+    unless options["init"].nil?
+      Jekyll::CreateSite.new(options["init"])
+      puts "Created new site #{options["init"]}"
+      exit(0)
+    end
   when 1
     options['destination'] = ARGV[0]
   when 2
