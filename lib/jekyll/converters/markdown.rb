@@ -19,6 +19,18 @@ module Jekyll
             STDERR.puts '  $ [sudo] gem install redcarpet'
             raise FatalException.new("Missing dependency: redcarpet")
           end
+        when 'redcarpet2'
+          begin
+            require 'redcarpet'
+            @redcarpet_extensions = {}
+            @config['redcarpet']['extensions'].each do |e|
+              @redcarpet_extensions[e.to_sym] = true
+            end
+          rescue LoadError
+            STDERR.puts 'You are missing a library required for Markdown. Please run:'
+            STDERR.puts '  $ [sudo] gem install redcarpet'
+            raise FatalException.new("Missing dependency: redcarpet")
+          end
         when 'kramdown'
           begin
             require 'kramdown'
@@ -89,6 +101,9 @@ module Jekyll
       case @config['markdown']
         when 'redcarpet'
           Redcarpet.new(content, *@redcarpet_extensions).to_html
+        when 'redcarpet2'
+          @redcarpet_markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, @redcarpet_extensions)
+          @redcarpet_markdown.render(content)          
         when 'kramdown'
           # Check for use of coderay
           if @config['kramdown']['use_coderay']
